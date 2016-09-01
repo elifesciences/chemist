@@ -1,7 +1,10 @@
+from collections import OrderedDict
+from getopt import getopt
 import json
 import logging
-import pprint
+import sys
 import web
+import ConfigParser
 
 urls = (
     '/github-hooks', 'GithubHooks'
@@ -14,6 +17,16 @@ handler = logging.StreamHandler()
 handler.setFormatter(logging.Formatter(FORMAT))
 LOG.addHandler(handler)
 
+try:
+    config = ConfigParser.RawConfigParser()
+    config.read('app.cfg')
+    options = OrderedDict(config.items('chemist'))
+    repositories = options['repositories'].split(',')
+    command = options['command']
+except:
+    LOG.exception("Please create a app.cfg file.")
+    sys.exit(-1)
+
 class GithubHooks:
     def POST(self):
         content = json.loads(web.data())
@@ -23,5 +36,6 @@ class GithubHooks:
 
 if __name__ == "__main__":
     app = web.application(urls, globals())
-    LOG.info('Started')
+    LOG.info('Started with repositories %s', repositories)
+    LOG.info('Started with command `%s`', command)
     app.run()
