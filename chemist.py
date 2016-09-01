@@ -3,6 +3,7 @@ from getopt import getopt
 from subprocess import call
 import json
 import logging
+import re
 import sys
 import web
 import ConfigParser
