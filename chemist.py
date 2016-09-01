@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from getopt import getopt
+from subprocess import call
 import json
 import logging
 import sys
@@ -31,7 +32,12 @@ class GithubHooks:
     def POST(self):
         content = json.loads(web.data())
         repository = content['repository']['full-name']
-        LOG.info('Received push hook for %s' % repository)
+        LOG.info('Received push hook for `%s`' % repository)
+        for interesting in repositories:
+            if re.match(interesting, repository):
+                LOG.info('Interesting because of `%s`' % interesting)
+                call(command, shell=True)
+                return
         return ''
 
 if __name__ == "__main__":
