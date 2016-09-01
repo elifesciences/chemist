@@ -31,7 +31,7 @@ except:
 class GithubHooks:
     def POST(self):
         content = json.loads(web.data())
-        repository = content['repository']['full-name']
+        repository = content['repository']['full_name']
         LOG.info('Received push hook for `%s`' % repository)
         for interesting in repositories:
             if re.match(interesting, repository):
