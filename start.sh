@@ -1,5 +1,4 @@
 #!/bin/bash
 set -e
 
-source venv/bin/activate
-python chemist.py
+exec venv/bin/python chemist.py
