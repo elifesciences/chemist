@@ -28,6 +28,7 @@ try:
     repositories = options['repositories'].split(',')
     command = options['command']
     secret = options['secret']
+    web.config.debug = False
 except:
     LOG.exception("Please create a app.cfg file.")
     sys.exit(-1)
