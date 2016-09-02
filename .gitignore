@@ -1,3 +1,4 @@
+/.cache/
 /app.cfg
 /venv
 *.pyc
