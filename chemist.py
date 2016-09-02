@@ -42,11 +42,19 @@ def verify_signature(body, signature, secret):
 
 class GithubHooks:
     def POST(self):
-        signature = web.ctx.env.get('HTTP_X_HUB_SIGNATURE')
+        signature_header = web.ctx.env.get('HTTP_X_HUB_SIGNATURE')
+        if not '=' in signature_header:
+            LOG.error('Signature must have the format sha1=... (%s)', signature_header)
+            return web.webapi.badrequest("Signature must have the format sha1=...")
+        signature_kind, signature = signature_header.split('=')
+        if signature_kind != 'sha1':
+            LOG.error('Signature must start with sha1= (%s)', signature_header)
+            return web.webapi.badrequest("Signature must start with sha1=")
         body = web.data()
         if not verify_signature(body, signature, secret):
             LOG.error('Refused signed (%s) request: %s', signature, body)
-            return web.webapi.forbidden()
+            return web.webapi.forbidden("Bad signature")
+
         content = json.loads(body)
         repository = content['repository']['full_name']
         LOG.info('Received push hook for `%s`' % repository)
