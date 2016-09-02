@@ -42,7 +42,7 @@ def verify_signature(body, signature, secret):
 
 class GithubHooks:
     def POST(self):
-        signature = web.ctx.env.get('X_HUB_SIGNATURE')
+        signature = web.ctx.env.get('HTTP_X_HUB_SIGNATURE')
         body = web.data()
         if not verify_signature(body, signature, secret):
             LOG.error('Refused signed (%s) request: %s', signature, body)
