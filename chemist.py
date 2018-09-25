@@ -35,11 +35,7 @@ except:
 
 def verify_signature(body, signature, secret):
     expected_signature = str(hmac.new(str(secret), msg=body, digestmod=sha1).hexdigest())
-    # Using a plain == operator is not advised, see:
-    # https://developer.github.com/webhooks/securing/
-    # however, Python prior to 2.7.7 doesn't have hmac.compare_digest
-    # and we have Python 2.7.6
-    return expected_signature == signature
+    return hmac.compare_digest(expected_signature, signature)
 
 class GithubHooks:
     def POST(self):
