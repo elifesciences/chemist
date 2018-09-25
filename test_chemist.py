@@ -8,4 +8,3 @@ class ChemistTest(unittest.TestCase):
         secret = "token_stored_in_github_webhook_configuration"
         self.assertTrue(chemist.verify_signature(body, signature, secret))
         self.assertFalse(chemist.verify_signature(body, 'plain wrong signature', secret))
-
