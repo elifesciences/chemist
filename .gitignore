@@ -2,3 +2,4 @@
 /app.cfg
 /venv
 *.pyc
+__pycache__/
