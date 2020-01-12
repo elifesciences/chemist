@@ -8,7 +8,7 @@ import logging
 import re
 import sys
 import web
-import ConfigParser
+import configparser
 
 urls = (
     '/github-hooks', 'GithubHooks'
@@ -22,7 +22,7 @@ handler.setFormatter(logging.Formatter(FORMAT))
 LOG.addHandler(handler)
 
 try:
-    config = ConfigParser.RawConfigParser()
+    config = configparser.RawConfigParser()
     config.read('app.cfg')
     options = OrderedDict(config.items('chemist'))
     repositories = options['repositories'].split(',')
@@ -34,7 +34,9 @@ except:
     sys.exit(-1)
 
 def verify_signature(body, signature, secret):
-    expected_signature = str(hmac.new(str(secret), msg=body, digestmod=sha1).hexdigest())
+    body = body.encode('utf-8')
+    secret = secret.encode('utf-8')
+    expected_signature = str(hmac.new(secret, msg=body, digestmod=sha1).hexdigest())
     return hmac.compare_digest(expected_signature, signature)
 
 class GithubHooks:
