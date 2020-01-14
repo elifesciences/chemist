@@ -29,13 +29,18 @@ try:
     command = options['command']
     secret = options['secret']
     web.config.debug = False
+
+    # config parser doesn't do type wrangling. just strings.
+    # https://docs.python.org/3.6/library/configparser.html#supported-datatypes
+    secret = secret.encode('utf-8')
+
 except:
     LOG.exception("Please create a app.cfg file.")
     sys.exit(-1)
 
 def verify_signature(body, signature, secret):
-    body = body.encode('utf-8')
-    secret = secret.encode('utf-8')
+    assert isinstance(body, bytes), "'body' must be a byte string"
+    assert isinstance(secret, bytes), "'secret' must be a byte string"
     expected_signature = str(hmac.new(secret, msg=body, digestmod=sha1).hexdigest())
     return hmac.compare_digest(expected_signature, signature)
 
@@ -49,6 +54,8 @@ class GithubHooks:
         if signature_kind != 'sha1':
             LOG.error('Signature must start with sha1= (%s)', signature_header)
             return web.webapi.badrequest("Signature must start with sha1=")
+        # web.py returns the body as bytes, no need to encode for hmac
+        # https://github.com/webpy/webpy/blob/663ec23f163f553ea0aefd6099ddec2924db3380/web/webapi.py#L458-L462
         body = web.data()
         if not verify_signature(body, signature, secret):
             LOG.error('Refused signed (%s) request: %s', signature, body)
