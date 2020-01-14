@@ -75,5 +75,5 @@ if __name__ == "__main__":
     app = web.application(urls, globals())
     LOG.info('Started with repositories %s', repositories)
     LOG.info('Started with command `%s`', command)
-    LOG.info('Started with secret `%s`', re.sub(r'.', '*', secret))
+    LOG.info('Started with secret `%s`', re.sub(r'.', '*', str(secret)))
     app.run()
