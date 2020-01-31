@@ -61,7 +61,7 @@ class GithubHooks:
             LOG.error('Refused signed (%s) request: %s', signature, body)
             return web.webapi.forbidden("Bad signature")
 
-        content = json.loads(body)
+        content = json.loads(body.decode('utf-8'))
         repository = content['repository']['full_name']
         LOG.info('Received push hook for `%s`' % repository)
         for interesting in repositories:
