@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from getopt import getopt
 from hashlib import sha1
 from subprocess import call
 import hmac
