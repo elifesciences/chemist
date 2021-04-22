@@ -7,7 +7,6 @@ verify_ssl = true
 python_version = "3.6"
 
 [packages]
-py = "~=1.10"
 # doesn't use semver
 "web.py" = "==0.40"
 
