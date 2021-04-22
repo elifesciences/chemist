@@ -1,3 +1,15 @@
-py==1.4.31
-pytest==3.0.2
+# file generated 2021-04-22 - see update-dependencies.sh
+atomicwrites==1.4.0
+attrs==20.3.0
+cheroot==8.5.2
+importlib-metadata==4.0.1
+jaraco.functools==3.3.0
+Markdown==3.3.4
+more-itertools==8.7.0
+pluggy==0.13.1
+py==1.4.34
+pytest==3.10.1
+six==1.15.0
+typing-extensions==3.7.4.3
 web.py==0.40
+zipp==3.4.1
