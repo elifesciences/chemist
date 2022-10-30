@@ -1,14 +1,17 @@
-# file generated 2022-07-26 - see update-dependencies.sh
-atomicwrites==1.4.1
-attrs==21.4.0
+# file generated 2022-10-31 - see update-dependencies.sh
+attrs==22.1.0
 cheroot==8.6.0
-importlib-metadata==4.12.0
-jaraco.functools==3.5.1
+exceptiongroup==1.0.0
+importlib-metadata==5.0.0
+iniconfig==1.1.1
+jaraco.functools==3.5.2
 Markdown==3.4.1
-more-itertools==8.13.0
+more-itertools==9.0.0
+packaging==21.3
 pluggy==1.0.0
-py==1.11.0
-pytest==3.10.1
+pyparsing==3.0.9
+pytest==7.2.0
 six==1.16.0
+tomli==2.0.1
 web.py==0.40
-zipp==3.8.1
+zipp==3.10.0

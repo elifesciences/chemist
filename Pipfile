@@ -11,4 +11,4 @@ python_version = "3.8"
 "web.py" = "==0.40"
 
 [dev-packages]
-pytest = "~=3.0"
+pytest = "~=7.2"
